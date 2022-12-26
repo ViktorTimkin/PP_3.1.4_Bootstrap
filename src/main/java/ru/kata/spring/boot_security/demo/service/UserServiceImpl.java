@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dao.UserDao;
+import ru.kata.spring.boot_security.demo.repository.UserRepository;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
@@ -14,37 +14,37 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
-    private final UserDao userDao;
+    private final UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserDao userDao, BCryptPasswordEncoder passwordEncoder) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDao.addUser(user);
+        userRepository.addUser(user);
     }
     @Override
     public void deleteUser(Long id) {
-        userDao.deleteUser(id);
+        userRepository.deleteUser(id);
     }
 
     @Override
     public void editUser(User user) {
-        userDao.editUser(user);
+        userRepository.editUser(user);
     }
     @Transactional(readOnly=true)
     @Override
     public User getUserById(Long id) {
-        return userDao.getUserById(id);
+        return userRepository.getUserById(id);
     }
     @Transactional(readOnly=true)
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return userRepository.getAllUsers();
     }
 
     //========================================================================
@@ -53,6 +53,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 /*        if (username.isEmpty())
             throw new UsernameNotFoundException("User not found!");*/
-        return userDao.getUserByUsername(username);
+        return userRepository.getUserByUsername(username);
     }
 }
