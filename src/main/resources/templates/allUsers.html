@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>AllUsers</title>
+</head>
+<body>
+
+<h1>Table</h1>
+<table border="1">
+    <tr>
+        <th>№</th>
+        <th>Login</th>
+        <th>Password</th>
+        <th>Update</th>
+        <th>Delete</th>
+
+    </tr>
+    <tbody>
+    <tr th:each="user : ${users}">
+
+        <td th:utext="${user.getId()}"></td>
+        <td th:utext="${user.getUsername()}"></td>
+        <td th:utext="${user.getPassword()}"></td>
+        <td>
+            <form  th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+        <td>
+            <form  th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<button><a href="/admin/add">Create new user</a></button>
+<br>
+</form:form>
+<button><a href="/">Started page</a></button>
+<br/>
+<button class="buttonLogout" onclick="window.location.href = '/logout';">Login out</button>
+
+</body>
+</html>

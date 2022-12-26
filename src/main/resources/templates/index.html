@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <title>StartPage</title>
 </head>
 <body>
-<h1>Welcome to Index PAGE!</h1>
 
+<div>
+    <h3>Started page </h3>
+    <h4><a href="/login">Login in</a></h4>
+    <h4><a href="/logout">Login out</a></h4>
+    <h4><a href="/registration">Registration</a></h4>
+    <h4><a href="/admin/allUsers">Only user</a></h4>
+    <h4><a href="/user/oneUser">Only admin</a></h4>
+</div>
 
 </body>
 </html>

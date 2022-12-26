@@ -4,8 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -13,29 +11,30 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotEmpty(message = "Имя не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Имя должно иметь от 2 до 100 символов")
-    @Column(name = "username")
     private String username;
-    @Column(name = "password")
     private String password;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_roles",
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles;
 
-    public User() {
+
+    public User(){
+
     }
 
-    public User(String username, String password, Set<Role> roles) {
-        this.username = username;
-        this.password = password;
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -49,32 +48,6 @@ public class User implements UserDetails {
 
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    //=========================================================================
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
     }
 
     @Override
@@ -97,17 +70,41 @@ public class User implements UserDetails {
         return true;
     }
 
-    //==========================================================================
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public User(String username, String password, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+        return Objects.equals(username, user.username) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, roles);
+        return Objects.hash(username);
     }
 }

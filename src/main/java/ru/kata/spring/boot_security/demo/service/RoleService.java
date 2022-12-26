@@ -1,12 +1,12 @@
-package ru.kata.spring.boot_security.demo.dao;
+package ru.kata.spring.boot_security.demo.service;
 
 import ru.kata.spring.boot_security.demo.model.Role;
 
 import java.util.List;
 
-public interface RoleDao {
+public interface RoleService {
     Role getRoleById(Long id);
     Role getRoleByName(String name);
-    List<Role> getAllRoles();
     void addRole(Role role);
+    List<Role> getAllRoles();
 }

@@ -13,14 +13,18 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
-    public Role(Long id, String name, Set<User> users) {
+
+    public Role(Long id) {
         this.id = id;
+    }
+
+
+    public Role( String name) {
+
         this.name = name;
-        this.users = users;
     }
 
     public Role() {
@@ -52,20 +56,19 @@ public class Role implements GrantedAuthority {
     }
 
     @Override
+    public String getAuthority() {
+        return getName();
+    }
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return Objects.equals(id, role.id) && Objects.equals(name, role.name) && Objects.equals(users, role.users);
+        return Objects.equals(name, role.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, users);
-    }
-
-    @Override
-    public String getAuthority() {
-        return name;
+        return Objects.hash(name);
     }
 }
