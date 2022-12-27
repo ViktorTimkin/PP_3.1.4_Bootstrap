@@ -11,14 +11,14 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/oneUser")
-    public String getUserPage(ModelMap modelMap, Principal principal) {
+    @GetMapping(value = "/oneUser")
+    public String getOneUser(ModelMap modelMap, Principal principal) {
         modelMap.addAttribute("user", userService.loadUserByUsername(principal.getName()));
         return "oneUser";
     }

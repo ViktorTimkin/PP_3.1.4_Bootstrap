@@ -16,7 +16,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder passwordEncoder;
     private UserService userService;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, BCryptPasswordEncoder passwordEncoder, UserService userService) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler,
+                             BCryptPasswordEncoder passwordEncoder,
+                             UserService userService) {
         this.successUserHandler = successUserHandler;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;

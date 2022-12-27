@@ -2,22 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>One User</title>
 </head>
 <body>
-
-<table border="1">
+<h1>account</h1>
+<table border="2">
     <tr>
         <th>№</th>
         <th>Login</th>
     </tr>
     <tbody>
     <tr th:each="user : ${user}">
-        <td th:utext="${user.getId}"></td>
+        <td th:utext="${user.getId()}"></td>
         <td th:utext="${user.getUsername()}"></td>
     </tr>
     </tbody>
 </table>
-
+<br/>
+</form:form>
+<button><a href="/">Start page</a></button>
+<br/>
+<br/>
+<button class="buttonLogout" onclick="window.location.href = '/logout';">Logout</button>
 </body>
 </html>

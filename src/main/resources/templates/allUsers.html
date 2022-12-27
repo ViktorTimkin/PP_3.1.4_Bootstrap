@@ -7,7 +7,7 @@
 <body>
 
 <h1>Table</h1>
-<table border="1">
+<table border="2">
     <tr>
         <th>№</th>
         <th>Login</th>
@@ -17,7 +17,7 @@
 
     </tr>
     <tbody>
-    <tr th:each="user : ${users}">
+    <tr th:each="user : ${user}">
 
         <td th:utext="${user.getId()}"></td>
         <td th:utext="${user.getUsername()}"></td>
@@ -38,10 +38,12 @@
 <br>
 <button><a href="/admin/add">Create new user</a></button>
 <br>
+<br>
 </form:form>
-<button><a href="/">Started page</a></button>
+<button><a href="/">Start page</a></button>
 <br/>
-<button class="buttonLogout" onclick="window.location.href = '/logout';">Login out</button>
+<br>
+<button class="buttonLogout" onclick="window.location.href = '/logout';">Logout</button>
 
 </body>
 </html>

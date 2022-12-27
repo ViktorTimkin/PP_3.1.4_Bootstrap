@@ -5,23 +5,23 @@
     <title>Registration</title>
 </head>
 <body>
-
+<h3>Registration</h3>
 <div>
     <form th:method="POST" th:action="@{registration}" th:object="${user}">
 
-        <fieldset>
-            <div>
-                <label for="username">Username</label>
-                <input type="text" th:field="${user.username}" id="username">
-                <br/>
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="text" th:field="${user.password}" id="password">
-                <br/>
-            </div>
-        </fieldset>
+        <div>
+            <label for="username">Username</label>
+            <input type="text" th:field="${user.username}" id="username">
+            <br/>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="text" th:field="${user.password}" id="password">
+            <br/>
+        </div>
 
+        <br>
+        <br>
         <button type="submit">Register</button>
 
     </form>

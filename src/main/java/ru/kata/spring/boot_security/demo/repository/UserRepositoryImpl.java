@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.repository;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -51,9 +50,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserDetails getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
         return entityManager.createQuery("SELECT u FROM User u JOIN FETCH u.roles WHERE u.username = :username", User.class)
                 .setParameter("username", username).getSingleResult();
     }
-
 }

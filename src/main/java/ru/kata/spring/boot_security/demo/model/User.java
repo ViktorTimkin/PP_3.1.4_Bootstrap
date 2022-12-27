@@ -13,9 +13,11 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
     private String password;
     @ManyToMany
     @JoinTable(
@@ -25,9 +27,7 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
-
-    public User(){
-
+    public User() {
     }
 
     public Set<Role> getRoles() {
@@ -100,7 +100,7 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username) ;
+        return Objects.equals(username, user.username);
     }
 
     @Override

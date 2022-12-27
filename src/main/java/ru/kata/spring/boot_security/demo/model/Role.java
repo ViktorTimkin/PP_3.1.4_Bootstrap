@@ -12,23 +12,20 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "name")
     private String name;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
-
 
     public Role(Long id) {
         this.id = id;
     }
 
-
-    public Role( String name) {
-
+    public Role(String name) {
         this.name = name;
     }
 
     public Role() {
-
     }
 
     public Long getId() {
@@ -59,6 +56,7 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return getName();
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
