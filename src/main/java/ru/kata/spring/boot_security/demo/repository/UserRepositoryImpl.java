@@ -13,10 +13,6 @@ public class UserRepositoryImpl implements UserRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public UserRepositoryImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
     @Override
     public void addUser(User user) {
         entityManager.persist(user);
@@ -24,13 +20,14 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteUser(Long id) {
+
         try {
             User user = entityManager.find(User.class, id);
             if (user != null) {
                 entityManager.remove(user);
             }
         } catch (NullPointerException e) {
-            System.out.println("User не существует");
+            System.out.println("User с указанным вами id не существует!");
         }
     }
 
@@ -39,6 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
         entityManager.merge(user);
     }
 
+
     @Override
     public User getUserById(Long id) {
         return entityManager.find(User.class, id);
@@ -46,12 +44,14 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAllUsers() {
-        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+        return entityManager.createQuery("select u from User u", User.class)
+                .getResultList();
     }
 
     @Override
     public User getUserByUsername(String username) {
         return entityManager.createQuery("SELECT u FROM User u JOIN FETCH u.roles WHERE u.username = :username", User.class)
-                .setParameter("username", username).getSingleResult();
+                .setParameter("username", username)
+                .getSingleResult();
     }
 }

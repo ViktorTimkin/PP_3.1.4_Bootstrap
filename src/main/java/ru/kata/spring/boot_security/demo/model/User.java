@@ -107,4 +107,23 @@ public class User implements UserDetails {
     public int hashCode() {
         return Objects.hash(username);
     }
+//=============================================================================
+    public String getRolesString() {
+        StringBuilder str = new StringBuilder();
+        for (Role role : roles) {
+            str.append(role).append(" ");
+        }
+        return str.toString();
+    }
+    //============================================================================
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }
