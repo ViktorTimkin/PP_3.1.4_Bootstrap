@@ -30,6 +30,13 @@ public class User implements UserDetails {
     public User() {
     }
 
+    public User(String username, String password, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    //=============================================================================
     public Set<Role> getRoles() {
         return roles;
     }
@@ -50,6 +57,23 @@ public class User implements UserDetails {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+//===================================================================================
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -70,31 +94,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public User(String username, String password, Set<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-    }
-
+    //===========================================================================
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,23 +107,13 @@ public class User implements UserDetails {
     public int hashCode() {
         return Objects.hash(username);
     }
-//=============================================================================
+
+    //=============================================================================
     public String getRolesString() {
         StringBuilder str = new StringBuilder();
         for (Role role : roles) {
             str.append(role).append(" ");
         }
         return str.toString();
-    }
-    //============================================================================
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", roles=" + roles +
-                '}';
     }
 }

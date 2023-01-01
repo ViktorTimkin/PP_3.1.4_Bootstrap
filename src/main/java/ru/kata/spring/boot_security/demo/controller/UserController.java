@@ -17,9 +17,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/oneUser")
+    @GetMapping("/user_panel")
     public String getOneUser(ModelMap modelMap, Principal principal) {
         modelMap.addAttribute("user", userService.loadUserByUsername(principal.getName()));
-        return "oneUser";
+        return "user_panel";
     }
 }
