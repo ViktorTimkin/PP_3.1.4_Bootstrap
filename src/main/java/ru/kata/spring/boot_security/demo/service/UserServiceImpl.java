@@ -23,10 +23,6 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /*@Override
-    public void addUser(User user) {
-        userRepository.addUser(user);
-    }*/
     @Transactional
     @Override
     public void addUser(User user) {
@@ -46,20 +42,20 @@ public class UserServiceImpl implements UserService {
         userRepository.editUser(user);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public User getUserById(Long id) {
         return userRepository.getUserById(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<User> getAllUsers() {
         return userRepository.getAllUsers();
     }
 
     //========================================================================
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (username.isEmpty())
